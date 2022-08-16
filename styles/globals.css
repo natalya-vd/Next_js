@@ -2,9 +2,11 @@
 	--black: #3B434E;
 	--white: #FFF;
 	--primary: #7653FC;
+	--primary-hover: #6849E2;
 	--red: #FC836D;
 	--green: #1DC47E;
 	--green-light: #C8F8E4;
+	--gray-light: #EBEBEB;
 	--background: #F5F6F8;
 	--font-family: "Noto Sans", sans-serif;
 }

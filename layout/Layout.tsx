@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'react';
-import cn from 'classnames';
 
 import { Header } from './Header/Header';
 import { Sidebar } from './Sidebar/Sidebar';

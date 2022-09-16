@@ -28,7 +28,7 @@ export interface TopPageBlog {
   _id: string;
 }
 
-export interface TopPageSravnikus {
+export interface TopPageSravnikurs {
   metaTitle: string;
   metaDescription: string;
   qas: string[];
@@ -63,6 +63,6 @@ export interface TopPageModel {
   addresses: string[];
   categoryOn: string;
   blog: TopPageBlog;
-  sravnikus: TopPageSravnikus;
+  sravnikus: TopPageSravnikurs;
   learningclub: TopPageLearningclub;
 }

@@ -1,7 +1,7 @@
 import cn from 'classnames';
 
 import { Menu } from '../Menu/Menu';
-import Logo from '../logo.svg'
+import Logo from '../logo.svg';
 
 import { SidebarProps } from './Sidebar.props';
 import styles from './Sidebar.module.css';

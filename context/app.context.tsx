@@ -12,6 +12,13 @@ export const AppContext = createContext<IAppContext>({ menu: [], firstCategory: 
 
 export const AppContextProvider = ({ menu, firstCategory, children }: PropsWithChildren<IAppContext>): JSX.Element => {
   const [menuState, setMenuState] = useState<MenuItem[]>(menu);
+  const [category, setCategory] = useState(firstCategory);
+
+  if (category !== firstCategory) {
+    setMenuState(menu);
+    setCategory(firstCategory);
+  }
+
   const setMenu = (newMenu: MenuItem[]) => {
     setMenuState(newMenu);
   };

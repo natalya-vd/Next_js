@@ -1,19 +1,29 @@
-import { HhData, Tag, Htag, Advantages } from '../../components';
+import { useReducer } from 'react';
 
+import { HhData, Tag, Htag, Advantages, Sort } from '../../components';
+import { TopLevelCategory } from '../../interfaces/page.interface';
+import { SortEnum } from '../../components/Sort/Sort.props';
+
+import { sortReducer } from './sort.reducer';
 import { TopPageComponentProps } from './TopPageComponent.props';
 import styles from './TopPageComponent.module.css';
-import { TopLevelCategory } from '../../interfaces/page.interface';
 
 export const TopPageComponent = ({ page, firstCategory, products }: TopPageComponentProps): JSX.Element => {
+  const [{ products: sortedProducts, sort }, dispatchSort] = useReducer(sortReducer, { products, sort: SortEnum.Rating });
+
+  const setSort = (sort: SortEnum) => {
+    dispatchSort({ type: sort });
+  };
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>
         <Htag tag='h1'>{page.title}</Htag>
         {products && <Tag color='gray' size='md'>{products.length}</Tag>}
-        <div>Сортировка</div>
+        <Sort sort={sort} setSort={setSort} />
       </div>
       <div>{
-        products && products.map(product => (<div key={product._id}>{product.title}</div>))}
+        sortedProducts && sortedProducts.map(product => (<div key={product._id}>{product.title}</div>))}
       </div>
 
       <div className={styles['hh-title']}>

@@ -3,7 +3,7 @@ import { GetStaticProps } from 'next';
 import axios from 'axios';
 
 import { withLayout } from '../layout/Layout';
-import { Button, Htag, Ptag, Tag, Rating } from '../components';
+import { Button, Htag, Ptag, Tag, Rating, Input, Textarea } from '../components';
 import { MenuItem } from '../interfaces/menu.interface';
 
 function Home({ menu }: HomeProps): JSX.Element {
@@ -21,6 +21,8 @@ function Home({ menu }: HomeProps): JSX.Element {
       <Tag size='md' color='green' href='http://jfdjf/fkdsj'>large</Tag>
 
       <Rating rating={rating} isEditable={true} setRating={setRating} />
+      <Input placeholder='test' />
+      <Textarea placeholder='test' />
     </>
   );
 }

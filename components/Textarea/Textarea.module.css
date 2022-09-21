@@ -19,3 +19,19 @@
 .textarea::placeholder {
 	color: var(--gray);
 }
+
+.textarea__wrapper {
+	position: relative;
+}
+
+.error {
+	border: 1px solid var(--red);
+}
+
+.error__message {
+	position: absolute;
+	bottom: -15px;
+	left: 0;
+
+	color: var(--red);
+}

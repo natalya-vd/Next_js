@@ -7,7 +7,7 @@ import styles from './Rating.module.css';
 
 
 export const Rating = forwardRef((
-  { isEditable = false, rating, setRating, ...props }: RatingProps,
+  { isEditable = false, rating, error, setRating, ...props }: RatingProps,
   ref: ForwardedRef<HTMLDivElement>): JSX.Element => {
 
   const [ratingArray, setRatingArray] = useState<JSX.Element[]>(new Array(5).fill(<></>));
@@ -59,8 +59,18 @@ export const Rating = forwardRef((
   };
 
   return (
-    <div ref={ref} {...props}>
+    <div
+      ref={ref}
+      className={cn(
+        styles.wrapper,
+        {
+          [styles.error]: error
+        }
+      )}
+      {...props}
+    >
       {ratingArray.map((el, i) => (<span key={i}>{el}</span>))}
+      {error && <span className={styles['error-message']}>{error.message}</span>}
     </div>
   );
 });

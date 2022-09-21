@@ -68,7 +68,7 @@
 }
 
 @media screen and (max-width: 640px) {
-  .review-form {
+	.review-form {
 		grid-template-columns: [start] 1fr [end];
 	}
 }

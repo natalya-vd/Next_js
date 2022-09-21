@@ -7,7 +7,7 @@
 	border: 0;
 	border-radius: 5px;
 	outline-color: var(--primary);
-	background: var(--wight);
+	background: var(--white);
 	box-shadow: 0 4px 4px rgb(0 0 0 / 5%);
 
 	font-family: var(--font-famaly);

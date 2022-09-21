@@ -43,10 +43,11 @@
 	display: inline-block;
 
 	margin: 0 0 0 10px;
+
+	transition: transform 200ms ease-in;
 }
 
 .down {
-	transition: transform 200ms ease-in;
 	transform: rotate(90deg);
 }
 

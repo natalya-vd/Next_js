@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import cn from 'classnames';
 import Image from 'next/image';
 
@@ -9,11 +9,23 @@ import { ProductProps } from './Product.props';
 import styles from './Product.module.css';
 
 
-export const Product = ({ product }: ProductProps): JSX.Element => {
+export const Product = ({ product, className, ...props }: ProductProps): JSX.Element => {
   const [isReviewOpened, setIsReviewOpened] = useState(false);
+  const reviewRef = useRef<HTMLDivElement>(null);
+
+  const scrollToReview = () => {
+    setIsReviewOpened(true);
+    reviewRef.current?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
 
   return (
-    <>
+    <div
+      className={className}
+      {...props}
+    >
       <Card className={styles.product}>
         <div className={styles.logo}>
           <Image
@@ -43,7 +55,11 @@ export const Product = ({ product }: ProductProps): JSX.Element => {
         </div>
         <div className={styles['price-title']}>цена</div>
         <div className={styles['credit-title']}>в кредит</div>
-        <div className={styles['rate-title']}>{product.reviewCount} {declOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}</div>
+        <div className={styles['rate-title']}>
+          <a href="#ref" onClick={scrollToReview}>
+            {product.reviewCount} {declOfNum(product.reviewCount, ['отзыв', 'отзыва', 'отзывов'])}
+          </a>
+        </div>
         <Divider className={styles.hr} />
         <div className={styles.description}>{product.description}</div>
         <div className={styles.feature}>
@@ -89,7 +105,9 @@ export const Product = ({ product }: ProductProps): JSX.Element => {
           [styles.opened]: isReviewOpened,
           [styles.close]: !isReviewOpened
         }
-      )}>
+      )}
+        ref={reviewRef}
+      >
         {
           product.reviews.map(review => (
             <div key={review._id}>
@@ -100,6 +118,6 @@ export const Product = ({ product }: ProductProps): JSX.Element => {
         }
         <ReviewForm productId={product._id} />
       </Card>
-    </>
+    </div>
   );
 };

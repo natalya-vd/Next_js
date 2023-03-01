@@ -33,10 +33,12 @@ export const Menu = (): JSX.Element => {
   const variantsChildren = {
     visible: {
       opacity: 1,
-      height: 29
+      minHeight: 29,
+      height: 'auto'
     },
     hidden: {
       opacity: 0,
+      minHeight: 0,
       height: 0
     }
   };
@@ -108,7 +110,7 @@ export const Menu = (): JSX.Element => {
     return (
       pages.map(page => (
         <motion.li
-          key={page.alias}
+          key={page._id}
           variants={variantsChildren}
         >
           <Link href={`/${route}/${page.alias}`}>

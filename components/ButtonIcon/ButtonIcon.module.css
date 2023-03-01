@@ -38,5 +38,5 @@
 
 .white:hover svg *,
 .white:focus svg * {
-	background-color: var(--white);
+	fill: var(--white);
 }

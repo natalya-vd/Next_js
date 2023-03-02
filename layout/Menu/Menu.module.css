@@ -39,7 +39,7 @@
 	font-size: 12px;
 
 	font-weight: 300;
-	line-height: 16px;
+	line-height: 18px;
 }
 
 .secondLevelBlock {
@@ -54,6 +54,7 @@
 	cursor: pointer;
 
 	color: var(--gray-dark);
+	outline-offset: -1px;
 
 	font-size: 14px;
 	font-weight: 500;

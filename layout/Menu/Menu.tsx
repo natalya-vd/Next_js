@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { useContext } from 'react';
+import { useContext, KeyboardEvent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { motion } from 'framer-motion';
@@ -52,6 +52,13 @@ export const Menu = (): JSX.Element => {
     }));
   };
 
+  const openSecondLevelKey = (key: KeyboardEvent, secondCategory: string) => {
+    if (key.code === 'Space' || key.code === 'Enter') {
+      key.preventDefault();
+      openSecondLevel(secondCategory);
+    }
+  };
+
   const buildFirstLevel = () => {
     return (
       <>
@@ -86,7 +93,12 @@ export const Menu = (): JSX.Element => {
           }
           return (
             <li key={item._id.secondCategory}>
-              <div className={styles.secondLevel} onClick={() => openSecondLevel(item._id.secondCategory)}>
+              <div
+                tabIndex={0}
+                onKeyDown={(key: KeyboardEvent) => openSecondLevelKey(key, item._id.secondCategory)}
+                className={styles.secondLevel}
+                onClick={() => openSecondLevel(item._id.secondCategory)}
+              >
                 {item._id.secondCategory}
               </div>
               <motion.ul
@@ -97,7 +109,7 @@ export const Menu = (): JSX.Element => {
                 className={cn(
                   styles.secondLevelBlock
                 )}>
-                {buildThirdLevel(item.pages, menuItem.route)}
+                {buildThirdLevel(item.pages, menuItem.route, item.isOpened ?? false)}
               </motion.ul>
             </li>
           );
@@ -106,7 +118,7 @@ export const Menu = (): JSX.Element => {
     );
   };
 
-  const buildThirdLevel = (pages: PageItem[], route: string) => {
+  const buildThirdLevel = (pages: PageItem[], route: string, isOpened: boolean) => {
     return (
       pages.map(page => (
         <motion.li
@@ -114,7 +126,7 @@ export const Menu = (): JSX.Element => {
           variants={variantsChildren}
         >
           <Link href={`/${route}/${page.alias}`}>
-            <a className={cn(
+            <a tabIndex={isOpened ? 0 : -1} className={cn(
               styles.thirdLevel,
               {
                 [styles.thirdLevelActive]: `/${route}/${page.alias}` === router.asPath

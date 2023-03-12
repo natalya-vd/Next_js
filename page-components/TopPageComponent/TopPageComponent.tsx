@@ -1,4 +1,5 @@
 import { useReducer, useEffect } from 'react';
+import { useReducedMotion } from 'framer-motion';
 
 import { HhData, Tag, Htag, Advantages, Sort, Product } from '../../components';
 import { TopLevelCategory } from '../../interfaces/page.interface';
@@ -8,8 +9,10 @@ import { sortReducer } from './sort.reducer';
 import { TopPageComponentProps } from './TopPageComponent.props';
 import styles from './TopPageComponent.module.css';
 
+
 export const TopPageComponent = ({ page, firstCategory, products }: TopPageComponentProps): JSX.Element => {
   const [{ products: sortedProducts, sort }, dispatchSort] = useReducer(sortReducer, { products, sort: SortEnum.Rating });
+  const shouldReduceMotion = useReducedMotion();
 
   const setSort = (sort: SortEnum) => {
     dispatchSort({ type: sort });
@@ -26,8 +29,8 @@ export const TopPageComponent = ({ page, firstCategory, products }: TopPageCompo
         {products && <Tag color='gray' size='md' aria-label={products.length + ' элементов'}>{products.length}</Tag>}
         <Sort sort={sort} setSort={setSort} />
       </div>
-      <div>{
-        sortedProducts && sortedProducts.map(product => (<Product layout key={product._id} product={product} />))}
+      <div role="list">{
+        sortedProducts && sortedProducts.map(product => (<Product layout={shouldReduceMotion ? false : true} key={product._id} product={product} role="listitem" />))}
       </div>
 
       <div className={styles['hh-title']}>

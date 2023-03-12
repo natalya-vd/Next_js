@@ -30,7 +30,7 @@ export const Search = ({ className, ...props }: SearchProps): JSX.Element => {
   };
 
   return (
-    <div className={cn(styles.search, className)} {...props}>
+    <form className={cn(styles.search, className)} {...props} role="search">
       <Input className={styles.input}
         placeholder="Поиск..."
         value={search}
@@ -45,6 +45,6 @@ export const Search = ({ className, ...props }: SearchProps): JSX.Element => {
       >
         <GlassIcon />
       </Button>
-    </div >
+    </ form>
   );
 };

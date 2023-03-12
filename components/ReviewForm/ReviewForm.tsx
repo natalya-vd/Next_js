@@ -14,7 +14,7 @@ import { IReviewForm, IReviewSendResponse } from './ReviewForm.interface';
 import styles from './ReviewForm.module.css';
 
 export const ReviewForm = ({ productId, isOpened, className, ...props }: ReviewFormProps): JSX.Element => {
-  const { register, control, handleSubmit, formState: { errors }, reset } = useForm<IReviewForm>();
+  const { register, control, handleSubmit, formState: { errors }, reset, clearErrors } = useForm<IReviewForm>();
 
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string>();
@@ -47,6 +47,7 @@ export const ReviewForm = ({ productId, isOpened, className, ...props }: ReviewF
           placeholder='Имя'
           error={errors.name}
           tabIndex={isOpened ? 0 : -1}
+          aria-invalid={!!errors.name}
         />
         <Input
           {...register('title', { required: { value: true, message: 'Заполните заголовок' } })}
@@ -54,6 +55,7 @@ export const ReviewForm = ({ productId, isOpened, className, ...props }: ReviewF
           placeholder='Заголовок отзыва'
           error={errors.title}
           tabIndex={isOpened ? 0 : -1}
+          aria-invalid={!!errors.title}
         />
         <div className={styles.rating}>
           <span>Оценка:</span>
@@ -79,30 +81,52 @@ export const ReviewForm = ({ productId, isOpened, className, ...props }: ReviewF
           placeholder='Текст отзыва'
           error={errors.description}
           tabIndex={isOpened ? 0 : -1}
+          aria-label="Текст отзыва"
+          aria-invalid={!!errors.description}
         />
         <div className={styles.submit}>
-          <Button appearance='primary' tabIndex={isOpened ? 0 : -1} >Отправить</Button>
+          <Button
+            appearance='primary'
+            tabIndex={isOpened ? 0 : -1}
+            onClick={() => clearErrors()}
+          >
+            Отправить
+          </Button>
           <span className={styles.info}>
             * Перед публикацией отзыв пройдет предварительную модерацию и проверку
           </span>
         </div>
       </div>
       {isSuccess && (
-        <div className={cn(styles.panel, styles.success)}>
+        <div className={cn(styles.panel, styles.success)} role="alert">
           <div className={styles.success__title}>
             Ваш отзыв отправлен
           </div>
           <p>
             Спасибо, ваш отзыв будет опубликован после проверки
           </p>
-          <CloseIcon className={styles.close} onClick={() => setIsSuccess(false)} />
+          <button
+            className={styles.close}
+            onClick={() => setIsSuccess(false)}
+            type='button'
+            aria-label="Закрыть оповещение"
+          >
+            <CloseIcon />
+          </button>
         </div>
       )}
 
       {error && (
-        <div className={cn(styles.panel, styles.error)}>
+        <div className={cn(styles.panel, styles.error)} role="alert">
           Что-то пошло не так, попробуйте обновить страницу.
-          <CloseIcon className={styles.close} onClick={() => setError(undefined)} />
+          <button
+            className={styles.close}
+            onClick={() => setError(undefined)}
+            type='button'
+            aria-label="Закрыть оповещение"
+          >
+            <CloseIcon />
+          </button>
         </div>
       )}
     </form>

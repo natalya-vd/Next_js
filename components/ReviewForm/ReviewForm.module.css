@@ -52,6 +52,9 @@
 	right: 20px;
 
 	cursor: pointer;
+
+	border: 0;
+	background-color: transparent;
 }
 
 .error {

@@ -115,7 +115,12 @@ export const Product = motion(forwardRef(({ product, className, ...props }: Prod
           <Button className={styles['btn-detail']} appearance="primary">
             Узнать подробнее
           </Button>
-          <Button appearance="ghost" arrow={isReviewOpened ? 'down' : 'right'} onClick={() => setIsReviewOpened(!isReviewOpened)}>
+          <Button
+            appearance="ghost"
+            arrow={isReviewOpened ? 'down' : 'right'}
+            onClick={() => setIsReviewOpened(!isReviewOpened)}
+            aria-expanded={isReviewOpened}
+          >
             Читать отзывы
           </Button>
         </div>
